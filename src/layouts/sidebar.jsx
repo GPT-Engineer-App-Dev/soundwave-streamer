@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { CircleUser, Menu, Music, Playlist } from "lucide-react";
+import { CircleUser, Menu, Music, ListMusic } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
 import { navItems } from "../App";
 
@@ -52,7 +52,7 @@ const Sidebar = () => (
             </SidebarNavLink>
           ))}
           <SidebarNavLink to="/playlists">
-            <Playlist className="h-4 w-4" />
+            <ListMusic className="h-4 w-4" />
             Playlists
           </SidebarNavLink>
         </nav>
@@ -84,7 +84,7 @@ const MobileSidebar = () => (
           </SidebarNavLink>
         ))}
         <SidebarNavLink to="/playlists">
-          <Playlist className="h-4 w-4" />
+          <ListMusic className="h-4 w-4" />
           Playlists
         </SidebarNavLink>
       </nav>
