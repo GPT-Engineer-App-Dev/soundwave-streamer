@@ -6,6 +6,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Layout from "./layouts/sidebar"; // Use the sidebar layout
 import Index from "./pages/Index.jsx";
 import TrackDetails from "./pages/TrackDetails.jsx"; // Import the new TrackDetails page
+import Playlists from "./pages/Playlists.jsx"; // Import the new Playlists page
 const queryClient = new QueryClient();
 
 export const navItems = [
@@ -36,6 +37,7 @@ const App = () => {
             <Route path="/" element={<Layout />}>
               <Route index element={<Index />} />
               <Route path="track/:id" element={<TrackDetails />} /> {/* Add route for TrackDetails */}
+              <Route path="/playlists" element={<Playlists />} /> {/* Add the new route for Playlists */}
               {/* Add more routes here as needed */}
             </Route>
           </Routes>
