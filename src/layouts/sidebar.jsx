@@ -1,15 +1,9 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { CircleUser, Menu, Music, ListMusic } from "lucide-react";
+import { CircleUser, Menu, Music, ListMusic, Play, Pause, SkipForward, SkipBack } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
 import { navItems } from "../App";
 
@@ -125,27 +119,49 @@ const SidebarNavLink = ({ to, children }) => (
   </NavLink>
 );
 
-const MusicPlayer = () => (
-  <div className="flex items-center justify-between">
-    <div className="flex items-center gap-2">
-      <Music className="h-6 w-6" />
-      <div>
-        <div className="text-sm font-semibold">Track Title</div>
-        <div className="text-xs text-muted-foreground">Artist Name</div>
+const MusicPlayer = () => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const tracks = [
+    { title: "Track 1", artist: "Artist 1" },
+    { title: "Track 2", artist: "Artist 2" },
+    { title: "Track 3", artist: "Artist 3" },
+  ];
+
+  const handlePlayPause = () => {
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleSkipForward = () => {
+    setCurrentTrackIndex((prevIndex) => (prevIndex + 1) % tracks.length);
+  };
+
+  const handleSkipBack = () => {
+    setCurrentTrackIndex((prevIndex) => (prevIndex - 1 + tracks.length) % tracks.length);
+  };
+
+  return (
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-2">
+        <Music className="h-6 w-6" />
+        <div>
+          <div className="text-sm font-semibold">{tracks[currentTrackIndex].title}</div>
+          <div className="text-xs text-muted-foreground">{tracks[currentTrackIndex].artist}</div>
+        </div>
+      </div>
+      <div className="flex items-center gap-2">
+        <Button variant="outline" size="icon" onClick={handleSkipBack}>
+          <SkipBack className="h-4 w-4" />
+        </Button>
+        <Button variant="outline" size="icon" onClick={handlePlayPause}>
+          {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+        </Button>
+        <Button variant="outline" size="icon" onClick={handleSkipForward}>
+          <SkipForward className="h-4 w-4" />
+        </Button>
       </div>
     </div>
-    <div className="flex items-center gap-2">
-      <Button variant="outline" size="icon">
-        <Music className="h-4 w-4" />
-      </Button>
-      <Button variant="outline" size="icon">
-        <Music className="h-4 w-4" />
-      </Button>
-      <Button variant="outline" size="icon">
-        <Music className="h-4 w-4" />
-      </Button>
-    </div>
-  </div>
-);
+  );
+};
 
 export default Layout;
